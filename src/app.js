@@ -11,10 +11,15 @@ app.use(
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true }));
 
-//
+// Root Route
+app.get("/", (req, res) => {
+  res.send("Expense Tracker API");
+});
+
+
 import expenseRouter from "./routes/expense.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
-import ApiError from "./utils/apiError.js";
+
 app.use("/api/v1/expenses", expenseRouter);
 
 //404 handler
