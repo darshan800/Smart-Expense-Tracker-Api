@@ -5,5 +5,12 @@
     "amount": 250,
     "category": "Food",
     "date": "2026-08-01"
+  },
+  {
+    "id": "711fc1d0-d22b-41e3-b384-bd751a50fdfb",
+    "title": "Pizza",
+    "amount": 350,
+    "category": "Food",
+    "date": "2026-08-01"
   }
 ]
