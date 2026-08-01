@@ -16,4 +16,5 @@ app.use(express.urlencoded({ extended: true }));
 import expenseRouter from "./routes/expense.routes.js"
 
 app.use("/api/v1/expenses",expenseRouter)
+
 export default app;
