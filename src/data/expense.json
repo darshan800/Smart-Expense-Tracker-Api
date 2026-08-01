@@ -1,20 +1,20 @@
 [
   {
-    "id": "99294613-419e-4213-8c9d-00ad9f7df26f",
+    "id": "a460c0f2-9b0f-4d29-9378-856fe5f09420",
     "title": "Pizza",
     "amount": 250,
     "category": "Food",
     "date": "2026-08-01"
   },
   {
-    "id": "3924fa71-a092-4d67-8b7a-02d735b3b9fe",
+    "id": "098437da-4601-41f0-9223-42a4fa39e1b7",
     "title": "Burger",
     "amount": 300,
     "category": "Food",
     "date": "2026-08-01"
   },
   {
-    "id": "b9629880-6bdf-47ed-b0db-322cdbcd3fbd",
+    "id": "3b85e2e5-c442-48d4-a86d-cdd143dc9a02",
     "title": "Bus",
     "amount": 100,
     "category": "Travel",
