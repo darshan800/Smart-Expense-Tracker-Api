@@ -24,14 +24,17 @@ export const createExpenseService = async (expenseData) => {
   return newExpense;
 };
 
-export const getAllExpensesService = async () => {
-  // Read expenses.json
+export const getAllExpensesService = async (category) => {
   const data = await fs.readFile(FILE_PATH, "utf-8");
 
-  // Parse JSON
   const expenses = JSON.parse(data);
 
-  // Return array
+  if (category) {
+    return expenses.filter(
+      (expense) => expense.category.toLowerCase() === category.toLowerCase()
+    );
+  }
+
   return expenses;
 };
 
@@ -69,18 +72,31 @@ export const deleteExpenseService = async (id) => {
   const data = await fs.readFile(FILE_PATH, "utf-8");
   const expenses = JSON.parse(data);
 
-  const filteredExpenses = expenses.filter(
-    (expense) => expense.id !== id
-  );
+  const filteredExpenses = expenses.filter((expense) => expense.id !== id);
 
   if (filteredExpenses.length === expenses.length) {
     return false;
   }
 
-  await fs.writeFile(
-    FILE_PATH,
-    JSON.stringify(filteredExpenses, null, 2)
-  );
+  await fs.writeFile(FILE_PATH, JSON.stringify(filteredExpenses, null, 2));
 
   return true;
+};
+
+export const getTotalExpensesService = async (category) => {
+  const data = await fs.readFile(FILE_PATH, "utf-8");
+
+  let expenses = JSON.parse(data);
+
+  if (category) {
+    expenses = expenses.filter(
+      (expense) => expense.category.toLowerCase() === category.toLowerCase()
+    );
+  }
+
+  const total = expenses.reduce((sum, expense) => {
+    return sum + Number(expense.amount);
+  }, 0);
+
+  return total;
 };

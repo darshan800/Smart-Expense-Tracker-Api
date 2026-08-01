@@ -16,7 +16,6 @@ app.get("/", (req, res) => {
   res.send("Expense Tracker API");
 });
 
-
 import expenseRouter from "./routes/expense.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
 

@@ -57,5 +57,5 @@ export const updateExpenseValidator = [
     .notEmpty()
     .withMessage("Date is required")
     .isISO8601()
-    .withMessage("Date must be a valid date (YYYY-MM-DD)")
+    .withMessage("Date must be a valid date (YYYY-MM-DD)"),
 ];

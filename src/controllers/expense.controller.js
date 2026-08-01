@@ -4,6 +4,7 @@ import {
   getExpenseByIdService,
   updateExpenseService,
   deleteExpenseService,
+  getTotalExpensesService,
 } from "../services/expense.service.js";
 
 import ApiError from "../utils/apiError.js";
@@ -26,7 +27,9 @@ export const createExpense = async (req, res, next) => {
 
 export const getAllExpenses = async (req, res, next) => {
   try {
-    const expenses = await getAllExpensesService();
+    const category = req.query.category;
+
+    const expenses = await getAllExpensesService(category);
 
     res.status(200).json({
       success: true,
@@ -82,6 +85,22 @@ export const deleteExpense = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Expense deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getTotalExpenses = async (req, res, next) => {
+  try {
+    const category = req.query.category;
+
+    const total = await getTotalExpensesService(category);
+
+    res.status(200).json({
+      success: true,
+      category: category || "All",
+      total,
     });
   } catch (error) {
     next(error);

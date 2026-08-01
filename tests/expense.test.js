@@ -148,4 +148,75 @@ describe("Expense API", () => {
       expect(response.body.success).toBe(false);
     });
   });
+
+  //Test all filter with category
+  describe("/api/v1/expenses", () => {
+    test("should filter expenses by category", async () => {
+      await request(app).post("/api/v1/expenses").send(expenseData);
+
+      await request(app).post("/api/v1/expenses").send({
+        title: "Bus",
+        amount: 100,
+        category: "Travel",
+        date: "2026-08-01",
+      });
+
+      const response = await request(app).get("/api/v1/expenses?category=Food");
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.success).toBe(true);
+      expect(response.body.data.length).toBe(1);
+      expect(response.body.data[0].category).toBe("Food");
+    });
+  });
+
+  //Total expenses
+  describe("GET /api/v1/expenses/total", () => {
+    test("should calculate total expenses", async () => {
+      await request(app).post("/api/v1/expenses").send(expenseData);
+
+      await request(app).post("/api/v1/expenses").send({
+        title: "Bus",
+        amount: 100,
+        category: "Travel",
+        date: "2026-08-01",
+      });
+
+      const response = await request(app).get("/api/v1/expenses/total");
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.success).toBe(true);
+      expect(response.body.total).toBe(350);
+    });
+  });
+
+  //Total by category
+  describe(" /api/v1/expenses/total?category", () => {
+    test("should calculate total expenses by category", async () => {
+      await request(app).post("/api/v1/expenses").send(expenseData);
+
+      await request(app).post("/api/v1/expenses").send({
+        title: "Burger",
+        amount: 300,
+        category: "Food",
+        date: "2026-08-01",
+      });
+
+      await request(app).post("/api/v1/expenses").send({
+        title: "Bus",
+        amount: 100,
+        category: "Travel",
+        date: "2026-08-01",
+      });
+
+      const response = await request(app).get(
+        "/api/v1/expenses/total?category=Food"
+      );
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body.success).toBe(true);
+      expect(response.body.category).toBe("Food");
+      expect(response.body.total).toBe(550);
+    });
+  });
 });

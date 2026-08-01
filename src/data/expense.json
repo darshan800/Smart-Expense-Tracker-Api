@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "99294613-419e-4213-8c9d-00ad9f7df26f",
+    "title": "Pizza",
+    "amount": 250,
+    "category": "Food",
+    "date": "2026-08-01"
+  },
+  {
+    "id": "3924fa71-a092-4d67-8b7a-02d735b3b9fe",
+    "title": "Burger",
+    "amount": 300,
+    "category": "Food",
+    "date": "2026-08-01"
+  },
+  {
+    "id": "b9629880-6bdf-47ed-b0db-322cdbcd3fbd",
+    "title": "Bus",
+    "amount": 100,
+    "category": "Travel",
+    "date": "2026-08-01"
+  }
+]
