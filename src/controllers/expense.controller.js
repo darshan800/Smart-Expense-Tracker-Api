@@ -3,10 +3,12 @@ import {
   getAllExpensesService,
   getExpenseByIdService,
   updateExpenseService,
-  deleteExpenseService
+  deleteExpenseService,
 } from "../services/expense.service.js";
 
-export const createExpense = async (req, res) => {
+import ApiError from "../utils/apiError.js";
+
+export const createExpense = async (req, res, next) => {
   const expenseData = req.body;
 
   try {
@@ -18,14 +20,11 @@ export const createExpense = async (req, res) => {
       data: expense,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const getAllExpenses = async (req, res) => {
+export const getAllExpenses = async (req, res, next) => {
   try {
     const expenses = await getAllExpensesService();
 
@@ -34,44 +33,32 @@ export const getAllExpenses = async (req, res) => {
       data: expenses,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const getExpenseById = async (req, res) => {
+export const getExpenseById = async (req, res, next) => {
   try {
     const expense = await getExpenseByIdService(req.params.id);
     if (!expense) {
-      return res.status(404).json({
-        success: false,
-        message: "expense not found",
-      });
+      throw new ApiError(404, "Expense not found");
     }
 
     return res.status(200).json({
       success: true,
-      message: expense,
+      data: expense,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const updateExpense = async (req, res) => {
+export const updateExpense = async (req, res, next) => {
   try {
     const expense = await updateExpenseService(req.params.id, req.body);
 
     if (!expense) {
-      return res.status(404).json({
-        success: false,
-        message: "Expense not found",
-      });
+      throw new ApiError(404, "Expense not found");
     }
 
     res.status(200).json({
@@ -80,22 +67,16 @@ export const updateExpense = async (req, res) => {
       data: expense,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const deleteExpense = async (req, res) => {
+export const deleteExpense = async (req, res, next) => {
   try {
     const deleted = await deleteExpenseService(req.params.id);
 
     if (!deleted) {
-      return res.status(404).json({
-        success: false,
-        message: "Expense not found",
-      });
+      throw new ApiError(404, "Expense not found");
     }
 
     res.status(200).json({
@@ -103,9 +84,6 @@ export const deleteExpense = async (req, res) => {
       message: "Expense deleted successfully",
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
