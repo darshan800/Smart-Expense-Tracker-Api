@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest --runInBand",
     "start": "node src/server.js",
@@ -12,8 +13,11 @@
   "author": "Darshan Kulkarni",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
+    "jsonwebtoken": "^9.0.3",
     "uuid": "^14.0.1"
   },
   "devDependencies": {
